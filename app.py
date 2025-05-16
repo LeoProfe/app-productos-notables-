@@ -1,3 +1,6 @@
+import streamlit as st
+import sympy as sp
+
 def generador_ejercicios():
     st.header("🎯 Ejercicios Prácticos: Expansión y Factorización")
 
