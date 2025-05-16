@@ -6,7 +6,7 @@ st.set_page_config(page_title="Aprende Factorización y Productos Notables", lay
 
 def intro():
     st.title("📚 Aprendamos Factorización y Productos Notables")
-    st.markdown("""
+    st.latex("""
     La **factorización** y los **productos notables** son herramientas fundamentales en álgebra para simplificar expresiones y resolver ecuaciones.  
     Conocerlos bien permite acelerar cálculos y desarrollar el pensamiento algebraico.  
     Aquí aprenderás las fórmulas, verás ejemplos interactivos y practicarás con ejercicios.  
