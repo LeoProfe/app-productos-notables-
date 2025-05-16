@@ -111,50 +111,50 @@ def generar_factorizacion(nivel):
             5*x**2 + 20*x + 15, 4*x**2 - 36, 49*x**2 - 1, x**2 + 6*x + 5, x**2 + 7*x + 6, x**2 - 8*x + 15,
         ]
     else:  # Avanzado
-    ejercicios = [
-        # Cúbicas
-        x**3 + 8,                      # suma de cubos
-        x**3 - 125,                   # diferencia de cubos
-        27*x**3 - 125,                # diferencia de cubos con coeficientes
-        x**3 + 1,                     # suma de cubos
-        8*x**3 + 12*x**2 + 6*x + 1,   # trinomio cúbico factorizable
-        (x**2 - 1)*(x + 2),           # binomio por trinomio
+        ejercicios = [
+            # Cúbicas
+            x**3 + 8,                      # suma de cubos
+            x**3 - 125,                   # diferencia de cubos
+            27*x**3 - 125,                # diferencia de cubos con coeficientes
+            x**3 + 1,                     # suma de cubos
+            8*x**3 + 12*x**2 + 6*x + 1,   # trinomio cúbico factorizable
+            (x**2 - 1)*(x + 2),           # binomio por trinomio
 
-        # Trinomios no evidentes
-        25*x**2 - 30*x + 9,           # trinomio cuadrado perfecto con coeficiente principal ≠ 1
-        9*x**2 + 12*x + 4,            # TCP con coeficiente ≠ 1
-        4*x**2 - 36,                  # diferencia de cuadrados
-        x**2 + 7*x + 10,              # trinomio simple factorizable
-        x**2 - 5*x + 6,               # trinomio simple factorizable
+            # Trinomios no evidentes
+            25*x**2 - 30*x + 9,           # trinomio cuadrado perfecto con coeficiente principal ≠ 1
+            9*x**2 + 12*x + 4,            # TCP con coeficiente ≠ 1
+            4*x**2 - 36,                  # diferencia de cuadrados
+            x**2 + 7*x + 10,              # trinomio simple factorizable
+            x**2 - 5*x + 6,               # trinomio simple factorizable
 
-        # Combinaciones de identidades
-        (2*x - 1)**2 + (x + 3)*(x - 3),   # suma de cuadrado y producto notable
-        (x + 5)*(x - 5) + x**2 + 4*x + 4, # suma de dos productos notables
+            # Combinaciones de identidades
+            (2*x - 1)**2 + (x + 3)*(x - 3),   # suma de cuadrado y producto notable
+            (x + 5)*(x - 5) + x**2 + 4*x + 4, # suma de dos productos notables
 
-        # Suma o diferencia de cuadrados con coeficientes altos
-        16*x**2 - 49,
-        36*x**2 - 25,
-        49*x**2 - 81,
+            # Suma o diferencia de cuadrados con coeficientes altos
+            16*x**2 - 49,
+            36*x**2 - 25,
+            49*x**2 - 81,
 
-        # Suma de factorizables
-        (x**2 - 4) + (4*x**2 + 4*x + 1),  # suma de diferencia de cuadrados y trinomio
-        (3*x + 2)*(3*x - 2) + (x - 2)**2, # suma de identidad y trinomio
+            # Suma de factorizables
+            (x**2 - 4) + (4*x**2 + 4*x + 1),  # suma de diferencia de cuadrados y trinomio
+            (3*x + 2)*(3*x - 2) + (x - 2)**2, # suma de identidad y trinomio
 
-        # Cuadrados con coeficientes altos
-        36*x**2 + 60*x + 25,             # TCP
-        4*x**2 + 4*x + 1,                # TCP
+            # Cuadrados con coeficientes altos
+            36*x**2 + 60*x + 25,             # TCP
+            4*x**2 + 4*x + 1,                # TCP
 
-        # Trinomios ocultos factorizables por agrupación
-        x**2 + 5*x + 6,
-        x**2 + 3*x + 2,
-        x**2 - 3*x - 10,
-        x**2 - 4*x + 3,
+            # Trinomios ocultos factorizables por agrupación
+            x**2 + 5*x + 6,
+            x**2 + 3*x + 2,
+            x**2 - 3*x - 10,    
+            x**2 - 4*x + 3,
 
-        # Factor común no obvio
-        x**3 + 3*x**2 - x - 3,           # agrupación
-        x**3 - x**2 - 4*x + 4,           # agrupación
-        x**3 + 2*x**2 - x - 2,           # agrupación
-        x**2*(x + 1) + 3*(x + 1),        # factor común
+            # Factor común no obvio
+            x**3 + 3*x**2 - x - 3,           # agrupación
+            x**3 - x**2 - 4*x + 4,           # agrupación
+            x**3 + 2*x**2 - x - 2,           # agrupación
+            x**2*(x + 1) + 3*(x + 1),        # factor común
     ]
 
     return random.choice(ejercicios)
