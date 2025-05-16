@@ -33,6 +33,15 @@ def mostrar_teoria():
     | **Cubo de binomio**        | (a ± b)³ = a³ ± 3a²b + 3ab² ± b³                               |
     | **Producto de binomios**   | (x - a)(x - b) = x² - (a + b)x + ab                            |
     """, unsafe_allow_html=True)
+    
+def generador_ejercicios():
+    st.header("🎯 Ejercicios Prácticos: Expansión y Factorización")
+
+    # Opciones usuario
+    modo = st.radio("¿Qué deseas practicar?", ["Expandir productos notables", "Aplicar factorización"], horizontal=True)
+    nivel = st.selectbox("📈 Nivel de dificultad:", ["Básico", "Intermedio", "Avanzado"])
+
+    x = sp.symbols('x')
 
 def generar_expansion(nivel):
     if nivel == "Básico":
