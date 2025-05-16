@@ -3,7 +3,6 @@ import sympy as sp
 import random
 import re
 
-# Debe ser la PRIMERA llamada en el archivo después de imports
 st.set_page_config(
     page_title="Ejercicios de Productos Notables y Factorización",
     page_icon="🧮",
@@ -12,13 +11,7 @@ st.set_page_config(
 )
 
 def corregir_multiplicacion(expr_str):
-    """
-    Inserta el operador '*' donde falte entre coeficiente y variable.
-    Ejemplo: "10x" -> "10*x", "3x^2" -> "3*x^2", "x2" -> "x*2"
-    """
-    # Inserta '*' entre dígito y letra
     expr_str = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', expr_str)
-    # Inserta '*' entre letra y dígito (por si acaso)
     expr_str = re.sub(r'([a-zA-Z])(\d)', r'\1*\2', expr_str)
     return expr_str
 
@@ -33,62 +26,27 @@ def mostrar_teoria():
     | **Cubo de binomio**        | (a ± b)³ = a³ ± 3a²b + 3ab² ± b³                               |
     | **Producto de binomios**   | (x - a)(x - b) = x² - (a + b)x + ab                            |
     """, unsafe_allow_html=True)
-    
-def generador_ejercicios():
-    st.header("🎯 Ejercicios Prácticos: Expansión y Factorización")
 
-    # Opciones usuario
-    modo = st.radio("¿Qué deseas practicar?", ["Expandir productos notables", "Aplicar factorización"], horizontal=True)
-    nivel = st.selectbox("📈 Nivel de dificultad:", ["Básico", "Intermedio", "Avanzado"])
-
-    x = sp.symbols('x')
+x = sp.symbols('x')
 
 def generar_expansion(nivel):
     if nivel == "Básico":
         ejercicios = [
-            (x + 1)**2,
-            (x - 2)**2,
-            (x + 3)*(x - 3),
-            (x - 4)**2,
-            (2*x + 1)**2,
-            (x + 5)*(x - 5),
-            (3*x - 2)**2,
-            (x + 2)**2,
-            (x - 1)*(x + 1),
-            (2*x - 3)**2,
-            (x + 4)**2,
-            (x - 5)**2,
-            (2*x + 2)*(2*x - 2),
-            (x + 3)**2,
-            (x - 3)**2,
-            (3*x + 1)*(3*x - 1),
-            (x + 6)*(x - 6),
-            (x - 2)**2,
-            (x + 2)*(x - 2),
-            (2*x + 3)**2,
+            (x + 1)**2, (x - 2)**2, (x + 3)*(x - 3), (x - 4)**2, (2*x + 1)**2,
+            (x + 5)*(x - 5), (3*x - 2)**2, (x + 2)**2, (x - 1)*(x + 1), (2*x - 3)**2,
+            (x + 4)**2, (x - 5)**2, (2*x + 2)*(2*x - 2), (x + 3)**2, (x - 3)**2,
+            (3*x + 1)*(3*x - 1), (x + 6)*(x - 6), (x - 2)**2, (x + 2)*(x - 2), (2*x + 3)**2,
+            (x - 6)**2, (3*x - 1)*(3*x + 1), (4*x + 2)**2, (2*x - 4)**2, (5*x - 2)*(5*x + 2),
+            (x + 7)*(x - 7), (2*x + 1)**2, (3*x + 2)**2, (x - 3)*(x + 3), (2*x + 5)*(2*x - 5),
         ]
     elif nivel == "Intermedio":
         ejercicios = [
-            (2*x + 3)**2,
-            (3*x - 4)**2,
-            (2*x + 5)*(2*x - 5),
-            (4*x + 2)**2,
-            (5*x - 1)**2,
-            (x + 7)*(x - 7),
-            (2*x - 3)**2,
-            (x + 6)**2,
-            (3*x + 5)*(3*x - 5),
-            (x - 6)**2,
-            (x + 4)*(x - 4),
-            (4*x - 3)**2,
-            (3*x + 1)*(3*x - 1),
-            (5*x + 2)**2,
-            (x - 7)**2,
-            (2*x + 1)*(2*x - 1),
-            (4*x + 5)**2,
-            (3*x - 6)**2,
-            (x + 8)*(x - 8),
-            (6*x - 1)**2,
+            (2*x + 3)**2, (3*x - 4)**2, (2*x + 5)*(2*x - 5), (4*x + 2)**2, (5*x - 1)**2,
+            (x + 7)*(x - 7), (2*x - 3)**2, (x + 6)**2, (3*x + 5)*(3*x - 5), (x - 6)**2,
+            (x + 4)*(x - 4), (4*x - 3)**2, (3*x + 1)*(3*x - 1), (5*x + 2)**2, (x - 7)**2,
+            (2*x + 1)*(2*x - 1), (4*x + 5)**2, (3*x - 6)**2, (x + 8)*(x - 8), (6*x - 1)**2,
+            (x + 2)*(x - 2), (x + 3)**2, (4*x - 5)**2, (3*x + 4)*(3*x - 4), (x + 1)**2,
+            (5*x + 3)*(5*x - 3), (2*x + 6)*(2*x - 6), (6*x + 1)*(6*x - 1), (x - 8)**2, (7*x - 1)**2,
         ]
     else:  # Avanzado
         ejercicios = [
@@ -112,55 +70,33 @@ def generar_expansion(nivel):
             (4*x + 1)**2,
             (x - 7)**2 + (x + 2)**2,
             (6*x + 5)*(6*x - 5),
+            (3*x + 3)**2 + (x - 1)**2,
+            (2*x + 6)*(2*x - 6) + (x + 2)**2,
+            (x + 1)*(x - 1) + (3*x - 4)**2,
+            (2*x - 5)**2 + (2*x + 1)**2,
+            (x + 6)**2 + (x - 6)**2,
+            (x + 2)*(x - 2) + (5*x + 1)*(5*x - 1),
+            (7*x + 3)**2,
+            (x - 8)**2 + (x + 8)*(x - 8),
+            (2*x + 4)**2 + (x - 2)**2,
+            (6*x - 3)**2,
         ]
     return random.choice(ejercicios)
 
 def generar_factorizacion(nivel):
     if nivel == "Básico":
         ejercicios = [
-            x**2 + 2*x + 1,
-            x**2 - 4,
-            x**2 + 6*x + 9,
-            4*x**2 - 9,
-            x**2 + 10*x + 25,
-            x**2 - 36,
-            9*x**2 - 1,
-            x**2 + 4*x + 4,
-            x**2 - 2*x + 1,
-            25*x**2 - 100,
-            x**2 - 49,
-            16*x**2 - 64,
-            x**2 - 1,
-            36*x**2 - 49,
-            x**2 + 8*x + 16,
-            49*x**2 - 81,
-            64*x**2 - 36,
-            x**2 + 12*x + 36,
-            x**2 + 14*x + 49,
-            9*x**2 + 12*x + 4,
+            x**2 + 2*x + 1, x**2 - 4, x**2 + 6*x + 9, 4*x**2 - 9, x**2 + 10*x + 25,
+            x**2 - 36, 9*x**2 - 1, x**2 + 4*x + 4, x**2 - 2*x + 1, 25*x**2 - 100,
+            x**2 - 49, 16*x**2 - 64, x**2 - 1, 36*x**2 - 49, x**2 + 8*x + 16,
+            49*x**2 - 81, 64*x**2 - 36, x**2 + 12*x + 36, x**2 + 14*x + 49, 9*x**2 + 12*x + 4,
         ]
     elif nivel == "Intermedio":
         ejercicios = [
-            4*x**2 - 25,
-            x**2 + 12*x + 36,
-            9*x**2 - 30*x + 25,
-            36*x**2 - 49,
-            16*x**2 - 1,
-            x**2 - 64,
-            25*x**2 - 20*x + 4,
-            x**2 + 9*x + 20,  # trinomio factorizable
-            49*x**2 - 16,
-            81*x**2 - 4,
-            16*x**2 + 40*x + 25,
-            4*x**2 + 28*x + 49,
-            3*x**2 - 12*x + 12,
-            x**2 + 11*x + 30,
-            5*x**2 + 20*x + 15,
-            4*x**2 - 36,
-            49*x**2 - 1,
-            x**2 + 6*x + 5,
-            x**2 + 7*x + 6,
-            x**2 - 8*x + 15,
+            4*x**2 - 25, x**2 + 12*x + 36, 9*x**2 - 30*x + 25, 36*x**2 - 49, 16*x**2 - 1,
+            x**2 - 64, 25*x**2 - 20*x + 4, x**2 + 9*x + 20, 49*x**2 - 16, 81*x**2 - 4,
+            16*x**2 + 40*x + 25, 4*x**2 + 28*x + 49, 3*x**2 - 12*x + 12, x**2 + 11*x + 30,
+            5*x**2 + 20*x + 15, 4*x**2 - 36, 49*x**2 - 1, x**2 + 6*x + 5, x**2 + 7*x + 6, x**2 - 8*x + 15,
         ]
     else:  # Avanzado
         ejercicios = [
@@ -187,8 +123,12 @@ def generar_factorizacion(nivel):
         ]
     return random.choice(ejercicios)
 
+def generador_ejercicios():
+    st.header("🎯 Ejercicios Prácticos: Expansión y Factorización")
 
-    # Guardar ejercicio en sesión para persistencia
+    modo = st.radio("¿Qué deseas practicar?", ["Expandir productos notables", "Aplicar factorización"], horizontal=True)
+    nivel = st.selectbox("📈 Nivel de dificultad:", ["Básico", "Intermedio", "Avanzado"])
+
     if "ejercicio_generado" not in st.session_state:
         st.session_state.ejercicio_generado = False
         st.session_state.respuesta_usuario = ""
@@ -234,11 +174,6 @@ def generar_factorizacion(nivel):
                     st.error("❌ Tu respuesta no es correcta.")
                     st.markdown("### ✅ Solución esperada:")
                     st.latex(sp.latex(st.session_state.solucion))
-                    if st.session_state.modo == "Expandir productos notables":
-                        st.info("📘 Consejo: Revisa si aplicaste correctamente la fórmula del binomio al cuadrado o cubo.")
-                    else:
-                        st.info("🔍 Intenta identificar factores comunes, diferencia de cuadrados, o cubos perfectos.")
-
             except Exception as e:
                 st.error(f"⚠️ No entendí tu expresión. Verifica paréntesis y operadores. Detalle: {str(e)}")
     else:
