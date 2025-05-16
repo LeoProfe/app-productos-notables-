@@ -14,7 +14,7 @@ def mostrar_teoria():
     st.markdown("""
     # 📚 Productos Notables
 
-    | Nombre en español            | Expresión algebraica                                            |
+    | Nombre                      | Expresión algebraica                                            |
     |-----------------------------|----------------------------------------------------------------|
     | **Cuadrado de binomio**     | (a ± b)² = a² ± 2ab + b²                                       |
     | **Producto suma-diferencia**| (a + b)(a - b) = a² - b²                                       |
