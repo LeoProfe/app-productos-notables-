@@ -117,4 +117,26 @@ def generador_ejercicios():
                                 if len(terms) == 3:
                                     st.markdown("- ¿Podría ser un trinomio cuadrado perfecto?")
                                 elif any(t.has(x**2) for t in terms) and any(t.has(x**0) for t in terms):
-                                    st
+                                    st.markdown("- ¿Existe una diferencia de cuadrados?")
+                                elif any(t.has(x**3) for t in terms):
+                                    st.markdown("- ¿Hay estructura de cubo perfecto?")
+
+                except Exception as e:
+                    st.error(f"⚠️ No entendí tu expresión. Verifica paréntesis y operadores. Detalle técnico: {str(e)}")
+    else:
+        st.info("Haz clic en 'Generar nuevo ejercicio' para comenzar.")
+
+def main():
+    st.set_page_config(page_title="Aprende Factorización y Productos Notables", layout="wide")
+    st.title("📚 Aprende Factorización y Productos Notables")
+    st.markdown(
+        """
+        La **factorización** y los **productos notables** son fundamentales en álgebra para simplificar expresiones y resolver ecuaciones.
+        Aquí puedes practicar la **expansión** y la **factorización** con ejercicios generados aleatoriamente y recibir retroalimentación inmediata.
+        """
+    )
+    generador_ejercicios()
+
+if __name__ == "__main__":
+    main()
+
