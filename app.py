@@ -1,6 +1,7 @@
 import streamlit as st
 import sympy as sp
 import random
+import re
 
 # Debe ser la PRIMERA llamada en el archivo después de imports
 st.set_page_config(
@@ -10,16 +11,27 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
+def corregir_multiplicacion(expr_str):
+    """
+    Inserta el operador '*' donde falte entre coeficiente y variable.
+    Ejemplo: "10x" -> "10*x", "3x^2" -> "3*x^2", "x2" -> "x*2"
+    """
+    # Inserta '*' entre dígito y letra
+    expr_str = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', expr_str)
+    # Inserta '*' entre letra y dígito (por si acaso)
+    expr_str = re.sub(r'([a-zA-Z])(\d)', r'\1*\2', expr_str)
+    return expr_str
+
 def mostrar_teoria():
     st.markdown("""
     # 📚 Productos Notables
 
     | Nombre                      | Expresión algebraica                                            |
-    |-----------------------------|----------------------------------------------------------------|
-    | **Cuadrado de binomio**     | (a ± b)² = a² ± 2ab + b²                                       |
-    | **Producto suma-diferencia**| (a + b)(a - b) = a² - b²                                       |
-    | **Cubo de binomio**         | (a ± b)³ = a³ ± 3a²b + 3ab² ± b³                               |
-    | **Producto de binomios**    | (x - a)(x - b) = x² - (a + b)x + ab                            |
+    |----------------------------|----------------------------------------------------------------|
+    | **Cuadrado de binomio**    | (a ± b)² = a² ± 2ab + b²                                       |
+    | **Producto suma-diferencia** | (a + b)(a - b) = a² - b²                                      |
+    | **Cubo de binomio**        | (a ± b)³ = a³ ± 3a²b + 3ab² ± b³                               |
+    | **Producto de binomios**   | (x - a)(x - b) = x² - (a + b)x + ab                            |
     """, unsafe_allow_html=True)
 
 def generador_ejercicios():
@@ -121,11 +133,13 @@ def generador_ejercicios():
 
         if st.button("✅ Verificar respuesta"):
             try:
-                entrada_usuario = sp.sympify(st.session_state.respuesta_usuario.replace("^", "**"))
+                entrada_usuario = st.session_state.respuesta_usuario.replace("^", "**")
+                entrada_usuario = corregir_multiplicacion(entrada_usuario)
+                entrada_usuario = sp.sympify(entrada_usuario)
+
                 if st.session_state.modo == "Expandir productos notables":
                     correcto = sp.simplify(entrada_usuario - st.session_state.solucion) == 0
                 else:
-                    # Para factorización comparamos la expansión para verificar equivalencia
                     correcto = sp.simplify(sp.expand(entrada_usuario) - sp.expand(st.session_state.expr)) == 0
 
                 if correcto:
