@@ -43,63 +43,91 @@ def generador_ejercicios():
 
     x = sp.symbols('x')
 
-    def generar_expansion(nivel):
+   def generar_expansion(nivel):
         if nivel == "Básico":
             ejercicios = [
-                (x + 3)**2,
-                (x - 5)**2,
-                (x + 4)*(x - 4),
+                (x + 1)**2,
+                (x - 2)**2,
+                (x + 3)*(x - 3),
                 (2*x + 1)**2,
-                (3*x - 2)**2,
+                (x - 4)**2,
+                (3*x + 2)**2,
                 (x + 5)*(x - 5),
+                (2*x - 3)**2,
+                (x + 2)**2,
+                (3*x - 1)**2,
             ]
         elif nivel == "Intermedio":
-            a = random.randint(2, 5)
-            b = random.randint(1, 6)
             ejercicios = [
-                (a*x + b)**2,
-                (a*x - b)**2,
-                (a*x + b)*(a*x - b),
-                (x - 2)**3,
-                (2*x + 3)**3,
-                (3*x - 4)**3,
+                (2*x + 3)**2,
+                (3*x - 4)**2,
+                (2*x + 5)*(2*x - 5),
+                (x - 2)**3,  # cúbica
+                (3*x + 1)**2,
+                (x + 7)*(x - 7),
+                (x - 1)**3,  # cúbica
+                (4*x + 3)**2,
+                (5*x - 2)**2,
+                (x + 1)*(x - 1),
             ]
         else:  # Avanzado
-            a = random.randint(2, 5)
-            b = random.randint(1, 5)
             ejercicios = [
-                (a*x + b)**3,
-                (a*x - b)**3,
-                ((x + b)*(x - b)) + (a*x + b)**2,
+                (3*x + 2)**3,
+                (x - 4)**2,
+                ((x + 5)*(x - 5)) + (2*x + 1)**2,
                 (2*x + 1)**3 + (x - 2)**3,
                 (3*x - 1)**3 - (x + 1)**3,
+                (x + 2)*(x - 2),
+                (4*x + 3)**2,
+                (2*x - 1)**3,
+                (5*x - 2)**2,
+                (x + 1)**3,  # cúbica
+                ((x - 3)*(x + 3)) + (x - 4)**2,
+                (x + 3)*(x - 3),
             ]
         return random.choice(ejercicios)
 
     def generar_factorizacion(nivel):
         if nivel == "Básico":
             ejercicios = [
-                x**2 + 6*x + 9,
-                x**2 - 16,
-                x**2 - 10*x + 25,
+                x**2 + 2*x + 1,
+                x**2 - 4,
+                x**2 - 6*x + 9,
                 4*x**2 - 9,
-                9*x**2 + 24*x + 16,
+                x**2 + 10*x + 25,
+                x**2 - 9,
+                x**2 + 8*x + 16,
+                9*x**2 - 1,
+                x**2 + 4*x + 4,
+                x**2 - 2*x + 1,
             ]
         elif nivel == "Intermedio":
             ejercicios = [
                 9*x**2 - 30*x + 25,
                 4*x**2 - 25,
-                x**3 - 6*x**2 + 12*x - 8,
-                8*x**3 + 27,
-                x**3 + 27,
+                3*x**2 - 12*x + 12,
+                x**3 - 6*x**2 + 12*x - 8,   # cúbica
+                x**2 + 6*x + 9,
+                16*x**2 - 64,
+                x**2 + 2*x - 3,
+                x**3 + 27,                 # cúbica
+                4*x**2 + 20*x + 25,
+                x**2 - 36,
             ]
         else:  # Avanzado
             ejercicios = [
-                8*x**3 + 12*x**2 + 6*x + 1,
+                x**3 + 8,                 # cúbica
+                8*x**3 + 12*x**2 + 6*x + 1, # cúbica
                 16*x**2 - 49,
                 (x**2 - 4) + (4*x**2 + 4*x + 1),
-                27*x**3 - 125,
-                x**3 - 125,
+                27*x**3 - 125,            # cúbica
+                x**3 - 125,               # cúbica
+                25*x**2 - 30*x + 9,
+                9*x**2 + 12*x + 4,
+                4*x**2 - 36,
+                x**3 + 1,                 # cúbica
+                x**2 + 7*x + 10,
+                (x**2 - 1)*(x + 2),       # factorizable
             ]
         return random.choice(ejercicios)
 
