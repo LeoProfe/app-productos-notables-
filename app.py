@@ -195,8 +195,9 @@ def generador_ejercicios():
         if st.button("✅ Verificar respuesta"):
             try:
                 entrada_usuario = st.session_state.respuesta_usuario.replace("^", "**")
+                entrada_usuario = entrada_usuario.replace("X", "x")
                 entrada_usuario = corregir_multiplicacion(entrada_usuario)
-                entrada_usuario = sp.sympify(entrada_usuario)
+                entrada_usuario = sp.sympify(entrada_usuario, locals={"x": x})
 
                 if st.session_state.modo == "Expandir productos notables":
                     correcto = sp.simplify(entrada_usuario - st.session_state.solucion) == 0
