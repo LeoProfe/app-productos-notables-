@@ -16,6 +16,11 @@ def corregir_multiplicacion(expr_str):
     expr_str = re.sub(r'(\))(\()', r'\1*\2', expr_str)  # )(
     expr_str = re.sub(r'(\d)(\()', r'\1*\2', expr_str)  # 2(x+1)
     expr_str = re.sub(r'(\))(\d)', r'\1*\2', expr_str)  # )(2)
+    expr_str = re.sub(r'(\d)([a-zA-Z\(])', r'\1*\2', expr_str)  # 2x o 2(x+1)
+    expr_str = re.sub(r'([a-zA-Z\)])(\d)', r'\1*\2', expr_str)  # x2 o )2
+    expr_str = re.sub(r'(\))(\()', r'\1*\2', expr_str)          # )(
+    expr_str = re.sub(r'([a-zA-Z])(\()', r'\1*\2', expr_str)    # x(x+1)
+    expr_str = re.sub(r'(\))([a-zA-Z])', r'\1*\2', expr_str)    # )(x)
 
     return expr_str
 
