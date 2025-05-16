@@ -13,6 +13,10 @@ st.set_page_config(
 def corregir_multiplicacion(expr_str):
     expr_str = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', expr_str)
     expr_str = re.sub(r'([a-zA-Z])(\d)', r'\1*\2', expr_str)
+    expr_str = re.sub(r'(\))(\()', r'\1*\2', expr_str)  # )(
+    expr_str = re.sub(r'(\d)(\()', r'\1*\2', expr_str)  # 2(x+1)
+    expr_str = re.sub(r'(\))(\d)', r'\1*\2', expr_str)  # )(2)
+
     return expr_str
 
 def mostrar_teoria():
