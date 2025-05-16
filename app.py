@@ -11,7 +11,7 @@ def intro():
     Conocerlos bien permite acelerar cálculos y desarrollar el pensamiento algebraico.  
     Aquí aprenderás las fórmulas, verás ejemplos interactivos y practicarás con ejercicios.  
     """)
-    st.markdown("---")
+    st.latex("---")
 
 def teoria():
     st.header("🔍 Teoría y Fórmulas de Productos Notables")
