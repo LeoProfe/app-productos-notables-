@@ -26,7 +26,7 @@ def generador_ejercicios():
     if "nivel" not in st.session_state:
         st.session_state.nivel = "Básico"
 
-    # Opciones del usuario
+    # Selección de modo y nivel (fuera de formularios para persistencia inmediata)
     st.session_state.modo = st.radio(
         "¿Qué deseas practicar?",
         ["Expandir productos notables", "Aplicar factorización"],
@@ -42,87 +42,108 @@ def generador_ejercicios():
 
     x = sp.symbols('x')
 
+    # Ejercicios ampliados: el doble en cada nivel y tipo
+    ejercicios_expansion = {
+        "Básico": [
+            (x + 3)**2, (x - 5)**2, (x + 4)*(x - 4), (x + 2)**2, (x - 3)**2, (x + 1)*(x - 1)
+        ],
+        "Intermedio": [
+            (2*x + 3)**2, (3*x - 1)**2, (4*x + 2)*(4*x - 2), (x - 2)**3, (5*x + 1)**2, (2*x - 5)**3
+        ],
+        "Avanzado": [
+            (2*x + 3)**3, (3*x - 1)**3, ((x + 2)*(x - 2)) + (2*x + 1)**2,
+            (x + 1)**3, (4*x - 3)**3, ((3*x + 2)*(3*x - 2)) + (x + 1)**2
+        ],
+    }
+
+    ejercicios_factorizacion = {
+        "Básico": [
+            x**2 + 6*x + 9, x**2 - 16, x**2 - 10*x + 25,
+            x**2 + 4*x + 4, x**2 - 9, x**2 - 6*x + 9
+        ],
+        "Intermedio": [
+            9*x**2 - 30*x + 25, 4*x**2 - 25, x**3 - 6*x**2 + 12*x - 8,
+            16*x**2 - 40*x + 25, 25*x**2 - 36, x**3 + 3*x**2 - 4*x - 12
+        ],
+        "Avanzado": [
+            8*x**3 + 12*x**2 + 6*x + 1, 16*x**2 - 49, (x**2 - 4) + (4*x**2 + 4*x + 1),
+            27*x**3 + 8, 64*x**3 - 125, x**3 + 6*x**2 + 12*x + 8
+        ],
+    }
+
+    # Funciones para obtener un ejercicio al azar
     def generar_expansion(nivel):
-        if nivel == "Básico":
-            return random.choice([(x + 3)**2, (x - 5)**2, (x + 4)*(x - 4)])
-        elif nivel == "Intermedio":
-            a = random.randint(2, 5)
-            b = random.randint(1, 6)
-            return random.choice([(a*x + b)**2, (a*x - b)**2, (a*x + b)*(a*x - b), (x - 2)**3])
-        else:
-            a = random.randint(2, 5)
-            b = random.randint(1, 5)
-            return random.choice([(a*x + b)**3, (a*x - b)**3, ((x + b)*(x - b)) + (a*x + b)**2])
+        return random.choice(ejercicios_expansion[nivel])
 
     def generar_factorizacion(nivel):
-        if nivel == "Básico":
-            return random.choice([x**2 + 6*x + 9, x**2 - 16, x**2 - 10*x + 25])
-        elif nivel == "Intermedio":
-            return random.choice([9*x**2 - 30*x + 25, 4*x**2 - 25, x**3 - 6*x**2 + 12*x - 8])
-        else:
-            return random.choice([8*x**3 + 12*x**2 + 6*x + 1, 16*x**2 - 49, (x**2 - 4) + (4*x**2 + 4*x + 1)])
+        return random.choice(ejercicios_factorizacion[nivel])
 
-    # Generar ejercicio solo si se solicita explícitamente
-    if st.button("🔁 Generar nuevo ejercicio"):
-        if st.session_state.modo == "Expandir productos notables":
-            st.session_state.expr = generar_expansion(st.session_state.nivel)
-            st.session_state.solucion = sp.expand(st.session_state.expr)
-        else:
-            st.session_state.expr = generar_factorizacion(st.session_state.nivel)
-            st.session_state.solucion = sp.factor(st.session_state.expr)
-        st.session_state.ejercicio_generado = True
-        st.session_state.respuesta_usuario = ""
+    # Formulario para generar ejercicio nuevo
+    with st.form(key="form_generar"):
+        generar = st.form_submit_button("🔁 Generar nuevo ejercicio")
+        if generar:
+            if st.session_state.modo == "Expandir productos notables":
+                st.session_state.expr = generar_expansion(st.session_state.nivel)
+                st.session_state.solucion = sp.expand(st.session_state.expr)
+            else:
+                st.session_state.expr = generar_factorizacion(st.session_state.nivel)
+                st.session_state.solucion = sp.factor(st.session_state.expr)
+            st.session_state.ejercicio_generado = True
+            st.session_state.respuesta_usuario = ""
 
     # Mostrar ejercicio actual si fue generado
     if st.session_state.ejercicio_generado:
         st.markdown(f"### 💡 Ejercicio de {st.session_state.modo} - Nivel {st.session_state.nivel}")
         st.latex(sp.latex(st.session_state.expr))
 
-        st.session_state.respuesta_usuario = st.text_input(
-            "✍️ Ingresa tu respuesta (usa ^ o ** para potencias):",
-            value=st.session_state.get("respuesta_usuario", ""),
-            key="respuesta_input"
-        )
+        # Formulario para responder y verificar
+        with st.form(key="form_responder"):
+            respuesta = st.text_input(
+                "✍️ Ingresa tu respuesta (usa ^ o ** para potencias):",
+                value=st.session_state.get("respuesta_usuario", ""),
+                key="respuesta_input"
+            )
+            verificar = st.form_submit_button("✅ Verificar respuesta")
 
-        if st.button("✅ Verificar respuesta"):
-            if not st.session_state.respuesta_usuario.strip():
-                st.warning("⚠️ Por favor ingresa una respuesta antes de verificar.")
-            else:
-                try:
-                    entrada_limpia = corregir_multiplicacion(st.session_state.respuesta_usuario.replace("^", "**"))
-                    entrada_usuario = sp.sympify(entrada_limpia)
-                    if st.session_state.modo == "Expandir productos notables":
-                        correcto = sp.simplify(entrada_usuario - st.session_state.solucion) == 0
-                    else:
-                        # Factorización: Comparamos la expansión para validar equivalencia
-                        correcto = sp.simplify(sp.expand(entrada_usuario) - sp.expand(st.session_state.expr)) == 0
+            if verificar:
+                st.session_state.respuesta_usuario = respuesta  # Guardar respuesta
 
-                    if correcto:
-                        st.success("🎉 ¡Correcto! Excelente trabajo.")
-                        st.balloons()
-                    else:
-                        st.error("❌ Tu respuesta no es correcta.")
-                        st.markdown("### ✅ Solución esperada:")
-                        st.latex(sp.latex(st.session_state.solucion))
-
-                        # Retroalimentación pedagógica clara y motivadora
+                if not respuesta.strip():
+                    st.warning("⚠️ Por favor ingresa una respuesta antes de verificar.")
+                else:
+                    try:
+                        entrada_limpia = corregir_multiplicacion(respuesta.replace("^", "**"))
+                        entrada_usuario = sp.sympify(entrada_limpia)
                         if st.session_state.modo == "Expandir productos notables":
-                            st.info("📘 Consejo: Revisa si aplicaste correctamente la fórmula del cuadrado o cubo del binomio.")
+                            correcto = sp.simplify(entrada_usuario - st.session_state.solucion) == 0
                         else:
-                            st.info("🔍 Intenta buscar patrones comunes: trinomios cuadrados, diferencia de cuadrados, cubos perfectos, etc.")
+                            correcto = sp.simplify(sp.expand(entrada_usuario) - sp.expand(st.session_state.expr)) == 0
 
-                            st.markdown("### 🧠 Consejo pedagógico:")
-                            if isinstance(st.session_state.expr, sp.Add):
-                                terms = list(st.session_state.expr.args)
-                                if len(terms) == 3:
-                                    st.markdown("- ¿Podría ser un trinomio cuadrado perfecto?")
-                                elif any(t.has(x**2) for t in terms) and any(t.has(x**0) for t in terms):
-                                    st.markdown("- ¿Existe una diferencia de cuadrados?")
-                                elif any(t.has(x**3) for t in terms):
-                                    st.markdown("- ¿Hay estructura de cubo perfecto?")
+                        if correcto:
+                            st.success("🎉 ¡Correcto! Excelente trabajo.")
+                            st.balloons()
+                        else:
+                            st.error("❌ Tu respuesta no es correcta.")
+                            st.markdown("### ✅ Solución esperada:")
+                            st.latex(sp.latex(st.session_state.solucion))
 
-                except Exception as e:
-                    st.error(f"⚠️ No entendí tu expresión. Verifica paréntesis y operadores. Detalle técnico: {str(e)}")
+                            if st.session_state.modo == "Expandir productos notables":
+                                st.info("📘 Consejo: Revisa si aplicaste correctamente la fórmula del cuadrado o cubo del binomio.")
+                            else:
+                                st.info("🔍 Intenta buscar patrones comunes: trinomios cuadrados, diferencia de cuadrados, cubos perfectos, etc.")
+
+                                st.markdown("### 🧠 Consejo pedagógico:")
+                                if isinstance(st.session_state.expr, sp.Add):
+                                    terms = list(st.session_state.expr.args)
+                                    if len(terms) == 3:
+                                        st.markdown("- ¿Podría ser un trinomio cuadrado perfecto?")
+                                    elif any(t.has(sp.Symbol('x')**2) for t in terms) and any(t.has(sp.Symbol('x')**0) for t in terms):
+                                        st.markdown("- ¿Existe una diferencia de cuadrados?")
+                                    elif any(t.has(sp.Symbol('x')**3) for t in terms):
+                                        st.markdown("- ¿Hay estructura de cubo perfecto?")
+
+                    except Exception as e:
+                        st.error(f"⚠️ No entendí tu expresión. Verifica paréntesis y operadores. Detalle técnico: {str(e)}")
     else:
         st.info("Haz clic en 'Generar nuevo ejercicio' para comenzar.")
 
