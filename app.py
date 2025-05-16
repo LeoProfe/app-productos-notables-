@@ -5,7 +5,7 @@ import sympy as sp
 st.set_page_config(page_title="Aprende Factorización y Productos Notables", layout="wide")
 
 def intro():
-    st.title("📚 Aprendamos Factorización y Productos Notables")
+    st.markdown("📚 Aprendamos Factorización y Productos Notables")
     st.latex("""
     La **factorización** y los **productos notables** son herramientas fundamentales en álgebra para simplificar expresiones y resolver ecuaciones.  
     Conocerlos bien permite acelerar cálculos y desarrollar el pensamiento algebraico.  
