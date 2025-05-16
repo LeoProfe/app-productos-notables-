@@ -12,24 +12,15 @@ st.set_page_config(
 
 def mostrar_teoria():
     st.markdown("""
-    # 📚 Productos Notables y Factorización
+    # 📚 Productos Notables
 
-    **Productos Notables:**
-
-    | Fórmula | Nombre |
-    |:---------:|:--------:|
-    | \\((a \\pm b)^2 = a^2 \\pm 2ab + b^2\\) | Cuadrado de binomio |
-    | \\((a + b)(a - b) = a^2 - b^2\\) | Producto de suma por diferencia |
-    | \\((a \\pm b)^3 = a^3 \\pm 3a^2b + 3ab^2 \\pm b^3\\) | Cubo de binomio |
-
-    **Factorización:**
-
-    - Factor común
-    - Trinomio cuadrado perfecto
-    - Diferencia de cuadrados
-    - Suma y diferencia de cubos
-    ---
-    """)
+    | Nombre en español            | Expresión algebraica                                            |
+    |-----------------------------|----------------------------------------------------------------|
+    | **Cuadrado de binomio**     | (a ± b)² = a² ± 2ab + b²                                       |
+    | **Producto suma-diferencia**| (a + b)(a - b) = a² - b²                                       |
+    | **Cubo de binomio**         | (a ± b)³ = a³ ± 3a²b + 3ab² ± b³                               |
+    | **Producto de binomios**    | (x - a)(x - b) = x² - (a + b)x + ab                            |
+    """, unsafe_allow_html=True)
 
 def generador_ejercicios():
     st.header("🎯 Ejercicios Prácticos: Expansión y Factorización")
