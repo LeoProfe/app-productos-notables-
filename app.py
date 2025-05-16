@@ -62,19 +62,49 @@ def generador_ejercicios():
     st.markdown("---")
 
     # --- TEORÍA RESUMIDA (Parte superior) ---
-    with st.expander("📚 Resumen Teórico (click para ver/ocultar)", expanded=True):
-        st.markdown("""
-        **Productos Notables:**  
-        - \((a \pm b)^2 = a^2 \pm 2ab + b^2\)  
-        - \((a + b)(a - b) = a^2 - b^2\)  
-        - \((a \pm b)^3 = a^3 \pm 3a^2b + 3ab^2 \pm b^3\)  
+with st.expander("📚 Resumen Teórico (click para ver/ocultar)", expanded=True):
+    st.markdown("""
+    ### Productos Notables
 
-        **Factorización:**  
-        - Factor común  
-        - Trinomio cuadrado perfecto  
-        - Diferencia de cuadrados  
-        - Suma y diferencia de cubos  
-        """)
+    - **Cuadrado de binomio:**  
+      \\[
+      (a \\pm b)^2 = a^2 \\pm 2ab + b^2
+      \\]
+
+    - **Diferencia de cuadrados:**  
+      \\[
+      (a + b)(a - b) = a^2 - b^2
+      \\]
+
+    - **Cubo de binomio:**  
+      \\[
+      (a \\pm b)^3 = a^3 \\pm 3a^2b + 3ab^2 \\pm b^3
+      \\]
+
+    ### Factorización
+
+    - **Factor común:** Extraer el factor común de todos los términos.  
+      Ejemplo: \\( ax + ay = a(x + y) \\)
+
+    - **Trinomio cuadrado perfecto:**  
+      \\[
+      a^2 \\pm 2ab + b^2 = (a \\pm b)^2
+      \\]
+
+    - **Diferencia de cuadrados:**  
+      \\[
+      a^2 - b^2 = (a + b)(a - b)
+      \\]
+
+    - **Suma y diferencia de cubos:**  
+      \\[
+      a^3 + b^3 = (a + b)(a^2 - ab + b^2)
+      \\]  
+      \\[
+      a^3 - b^3 = (a - b)(a^2 + ab + b^2)
+      \\]
+    """, unsafe_allow_html=True)
+
 
     st.markdown("---")
 
